@@ -78,4 +78,115 @@ for n in range(1,101):
     else:
         print(n)
 
+"""
+Task 4 — Dict operations (1 hr)
+
+  Build this dict from scratch by adding stocks one by one — do not write it all at once:
+  MSFT: 4200, AAPL: 3780, NVDA: 4375, TSLA: 1850, AMZN: 3600
+
+  Then:
+  1. Print all tickers + values using .items() — format: "MSFT: $4,200.00"
+  2. Calculate total portfolio value
+  3. Calculate each stock's weight — format: "MSFT weight: 23.45%"
+  4. Find largest and smallest position
+  5. Remove TSLA
+  6. Add "GOOG": 2900
+  7. Check if "AAPL" is in the portfolio using in
+  """
+
+print("")
+print("Task 4 Dict operation")
+print("")
+
+portfolio = {}
+portfolio["MSFT"] = 4200
+portfolio["AAPL"] = 3780
+portfolio["NVDA"] = 4375
+portfolio["TSLA"] = 1850
+portfolio["AMZN"] = 3600
+
+for ticker,value in portfolio.items():
+    print(f"{ticker}: ${value:,.2f}")
+
+total = 0
+for value in portfolio.values():
+    total += value
+print(f"Total portfolio value: ${total:,.2f}")
+
+for ticker,value in portfolio.items():
+    weight = value / total
+    print(f"{ticker} weight: {weight:.2%}")
+
+ticker2 = ""
+largest = 0
+for ticker1,value1 in portfolio.items():
+    if value1 > largest:
+        largest = value1
+        ticker2 = ticker1
+print(f"Largest value of the portfolio: {ticker2}: ${largest:,.2f}")
+
+
+ticker4 = ""
+smallest = float('inf')
+for ticker3,value2 in portfolio.items():
+    if value2 < smallest:
+        smallest = value2
+        ticker4 = ticker3
+print(f"Smallest value of the portfolio: {ticker4}: ${smallest:,.2f}")
+
+
+del portfolio["TSLA"]
+
+portfolio["GOOG"] = 2900
+
+check = "AAPL" in portfolio
+print(f"AAPL in portfolio?: {check}")
+
+
+
+"""
+ Task 5 — Loop + list + zip (45 min)
+  
+  tickers = ["MSFT", "AAPL", "NVDA", "AMZN"]
+  prices  = [420.5,  189.3,  875.0,  192.4]
+  shares  = [10,     20,     5,      15   ]
+
+  Using zip() and a for loop:
+  - Compute value for each position (price * shares)
+  - Sum total portfolio value
+  - Print which stock has the highest value
+"""
+
+print("")
+print("Task 5 Loop + list + zip")
+print("")
+
+p_tickers = ["MSFT", "AAPL", "NVDA", "AMZN"]
+p_prices  = [420.5,  189.3,  875.0,  192.4]
+p_shares  = [10,     20,     5,      15   ]
+p_total = 0
+print(f"Values for each position:")
+for p_ticker, p_price, p_shares_held in zip(p_tickers,p_prices,p_shares):
+    p_value = p_price * p_shares_held
+    p_total += p_value
+    print(f"{p_ticker}: {p_shares_held} shares @ ${p_price:,.2f} = ${p_value:,.2f}")
+print("")
+print(f"Sum total portfolio value: ${p_total:,.2f}")
+
+p_highest = 0
+p_highest_ticker = ""
+p_lowest = float('inf')
+p_lowest_ticker = ""
+for p_ticker, p_price, p_shares_held in zip(p_tickers,p_prices,p_shares):
+    p_value = p_price * p_shares_held
+    if p_value > p_highest:
+        p_highest = p_value
+        p_highest_ticker = p_ticker
+    if p_value < p_lowest:
+        p_lowest = p_value
+        p_lowest_ticker = p_ticker
+print(f"Highest value of the portfolio:")
+print(f"{p_highest_ticker}: ${p_highest:,.2f}")
+print(f"Lowest value of the portfolio:")
+print(f"{p_lowest_ticker}: ${p_lowest:,.2f}")
 
